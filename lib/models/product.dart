@@ -26,7 +26,8 @@ class Product {
     this.id = o["id"];
     this.name = o["name"];
     this.description = o["description"];
-    this.unitPrice = o["unitPrice"] is int ? o["unitPrice"].toDouble() : o["unitPrice"];
+    //this.unitPrice = o["unitPrice"] is int ? o["unitPrice"].toDouble() : o["unitPrice"];
+    this.unitPrice = double.tryParse(o["unitPrice"].toString());
   }
 
 }
