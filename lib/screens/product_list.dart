@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite_demo/data/dbHelper.dart';
-import '../models/product.dart';
+
+import 'package:sqflite_demo/screens/product_detail.dart';import '../models/product.dart';
 import 'product_add.dart';
+import 'product_detail.dart';
 
 class ProductList extends StatefulWidget {
   @override
@@ -53,7 +55,7 @@ class _ProductListState extends State<ProductList> {
             ),
             title: Text(products[position].name as String),
             subtitle: Text(products[position].description as String),
-            onTap: () {},
+            onTap: () { goToDetail(this.products[position]);},
           ),
         );
       },
@@ -68,8 +70,10 @@ class _ProductListState extends State<ProductList> {
     );
 
     // Null kontrolü yaparak varsayılan olarak `false` değeri kullanıyoruz.
-    if (result != null && result == true) {
-      getProducts(); // Ürün listesini güncelle
+    if (result != null ) {
+      if(result == true){
+        getProducts(); // Ürün listesini güncelle
+      }
     }
   }
 
@@ -83,4 +87,18 @@ class _ProductListState extends State<ProductList> {
       });
     });
   }
+
+  //ürün detayı
+  void goToDetail(Product product) async{
+      bool result = await Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetail(product)));
+      if(result != null){
+        if(result){
+          getProducts();
+        }
+      }
+
+  }
+
+
+
 }
